@@ -85,9 +85,6 @@ function nginx_cache_inspect_item() {
             if [ -n "$key" ]; then
                 echo "file: $i"
                 expires=$(get_cache_item_ttl $i)
-                ## If the expire timestamp is negative that means that
-                ## the item is not found or other error.
-                [ $ttl -lt 0 ] && echo "404 Not found" && continue
                 ttl=$(expr $expires - $(date '+ %s'))
                 echo "key: $key TTL: $ttl EXPIRES:$(date '+ %d.%b.%Y %T' --date=@$expires)"
             fi
